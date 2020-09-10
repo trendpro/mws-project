@@ -94,7 +94,7 @@ function renderWeatherHeader(data) {
         }</span>
       </div>
       <div class="weather-container">
-        ${feather.icons.sun.toSvg({ class: "weather-icon" })}
+        ${renderIcon(current.weather[0].icon)}
         <h1 class="weather-temp">${parseInt(current.temp, 10)}°C</h1>
         <h2 class="weather-desc">${current.weather[0].description}</h2>
       </div>
@@ -126,10 +126,16 @@ function renderDailyForecast(forecast, i) {
   let today = (currentDate.getDay() + i) % 6;
   return `
   <li class="active">
-    ${feather.icons.sun.toSvg({ class: "weather-icon" })}
+    ${renderIcon(forecast.weather[0].icon)}
     <span class="day-name">${dayShortform[today]}</span
     ><span class="day-temp">${parseInt(forecast.temp.max, 10)}°C</span>
   </li>
+  `;
+}
+
+function renderIcon(icon) {
+  return `
+  <img src="https://openweathermap.org/img/wn/${icon}@2x.png" alt="Icon" class="weather-icon">
   `;
 }
 

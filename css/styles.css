@@ -31,7 +31,7 @@ body {
 }
 
 .container {
-  background-color: #343d4b;
+  background: #222831;
 }
 
 h1 {
@@ -52,7 +52,7 @@ h1 {
   box-shadow: 0 0 70px -10px rgba(0, 0, 0, 0.2);
   background-color: #222831;
   color: #ffffff;
-  height: 55vh;
+  height: 50vh;
 }
 
 .weather-side {
@@ -107,6 +107,11 @@ h1 {
 
 .weather-icon.feather {
   height: 60px;
+  width: 60px;
+}
+
+img.weather-icon {
+  height: 70px;
   width: auto;
 }
 
@@ -123,9 +128,9 @@ h1 {
 .info-side {
   color: #ffffff;
   position: relative;
-  float: left;
+  /* float: left; */
   width: 100%;
-  padding-top: 25px;
+  /* padding-top: 25px; */
   background-color: #222831;
 }
 
@@ -166,7 +171,6 @@ h1 {
   box-shadow: 0 0 50px -5px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
   background: #222831;
-  margin: auto;
 }
 
 .week-list > li {
@@ -200,7 +204,7 @@ h1 {
 }
 
 .location-container {
-  padding: 25px 35px;
+  padding: 15px 25px;
 }
 
 .location-button {
@@ -225,11 +229,11 @@ h1 {
   transition: transform 200ms ease, -webkit-transform 200ms ease;
 }
 
-.location-button:hover {
+/* .location-button:hover {
   -webkit-transform: scale(0.95);
   -ms-transform: scale(0.95);
   transform: scale(0.95);
-}
+} */
 
 .location-button .feather {
   height: 1em;
@@ -240,11 +244,6 @@ h1 {
 @media only screen and (min-width: 600px) {
   .container {
     width: 50%;
-  }
-
-  .location-container {
-    padding: 25px 35px;
-    /* width: 70%; */
   }
 }
 
