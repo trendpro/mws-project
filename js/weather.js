@@ -1,5 +1,3 @@
-feather.replace();
-
 const days = [
   "Sunday",
   "Monday",
@@ -13,27 +11,71 @@ const days = [
 const dayShortform = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
 const currentDate = new Date();
 const apiKey = "fb140c58b06d9db665b7713138ae69ea";
-const lat = "40.730610";
-const lon = "-73.935242";
 
-let url = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=hourly,minutely&units=metric&appid=${apiKey}`;
+// default NY coords
+let lat = "40.730610";
+let lon = "-73.935242";
+let cityName = "";
+
+const url = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=hourly,minutely&units=metric&appid=${apiKey}`;
 
 const weatherHeaderDiv = document.getElementById("weatherHeader");
 const todayDetailsDiv = document.getElementById("todayDetails");
 const forecastDiv = document.getElementById("forecast");
 
+// search
+const searchInput = document.getElementById("location-input");
+const button = document.getElementById("search-btn");
+button.addEventListener(
+  "click",
+  function () {
+    const searchQuery = searchInput.value;
+    if (searchQuery !== "") {
+      reverseGeocode(searchQuery);
+    } else {
+      // console.log("[No Search!");
+    }
+  },
+  false
+);
+
+async function reverseGeocode(query) {
+  const res = await fetch(
+    `https://maps.googleapis.com/maps/api/geocode/json?address=${query}&key=AIzaSyBeSALB4UQwj0ezwUtuAKYJbpR6ZGyQuSE`
+  );
+  const data = await res.json();
+  if (
+    data &&
+    data.results[0] &&
+    data.results[0].geometry &&
+    data.results[0].geometry.location
+  ) {
+    lat = data.results[0].geometry.location.lat;
+    lon = data.results[0].geometry.location.lng;
+    cityName = data.results[0].formatted_address;
+
+    postWeather();
+  } else {
+    // console.log("Error message!!");
+  }
+}
+
 window.addEventListener("load", (e) => {
   postWeather();
+  feather.replace();
 });
 
 async function postWeather() {
   const res = await fetch(url);
   const data = await res.json();
   const { current, daily } = data;
-  console.log("[current, daily ]", current, daily, data);
+
   weatherHeaderDiv.innerHTML = renderWeatherHeader(data);
   todayDetailsDiv.innerHTML = renderTodayDetails(current);
-  forecastDiv.innerHTML = daily.map(renderDailyForecast).join("\n");
+  forecastDiv.innerHTML = daily
+    .slice(0, 5)
+    .map((f, i) => renderDailyForecast(f, i))
+    .join("\n");
 }
 
 function renderWeatherHeader(data) {
@@ -45,14 +87,16 @@ function renderWeatherHeader(data) {
         <h2 class="date-dayname">${days[currentDate.getDay()]}</h2>
         <span class="date-day">${currentDate.getDate()}/${
     currentDate.getMonth() + 1
-  } /${currentDate.getFullYear()}</span
-        ><i class="location-icon" data-feather="map-pin"></i
-        ><span class="location">${data.timezone}</span>
+  } /${currentDate.getFullYear()}</span>
+        ${feather.icons.map.toSvg({ class: "location-icon" })}
+        <span class="location">${
+          cityName === "" ? data.timezone : cityName
+        }</span>
       </div>
       <div class="weather-container">
-        <i class="weather-icon" data-feather="sun"></i>
+        ${feather.icons.sun.toSvg({ class: "weather-icon" })}
         <h1 class="weather-temp">${parseInt(current.temp, 10)}°C</h1>
-        <h3 class="weather-desc">${current.weather[0].description}</h3>
+        <h2 class="weather-desc">${current.weather[0].description}</h2>
       </div>
     </div>
   `;
@@ -78,19 +122,19 @@ function renderTodayDetails(current) {
   `;
 }
 
-function renderDailyForecast(forecast) {
-  let date = new Date(forecast.dt);
+function renderDailyForecast(forecast, i) {
+  let today = (currentDate.getDay() + i) % 6;
   return `
   <li class="active">
-    <i class="day-icon" data-feather="sun"></i
-    ><span class="day-name">${dayShortform[date.getDay()]}</span
+    ${feather.icons.sun.toSvg({ class: "weather-icon" })}
+    <span class="day-name">${dayShortform[today]}</span
     ><span class="day-temp">${parseInt(forecast.temp.max, 10)}°C</span>
   </li>
   `;
 }
 
-// if ("serviceWorker" in navigator) {
-//   navigator.serviceWorker.register("/sw.js").then(function () {
-//     console.log("Service Worker registered");
-//   });
-// }
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("../sw.js").then(function () {
+    console.log("Service Worker registered");
+  });
+}

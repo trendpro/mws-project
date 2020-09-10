@@ -5,7 +5,9 @@
   "scope": "/",
   "start_url": "/",
   "app_name": "Smash It",
+  "name": "Smash It",
   "short_name": "Smash It",
+  "prefer_related_applications": true,
   "description": "Weather app",
   "icons": [
     {

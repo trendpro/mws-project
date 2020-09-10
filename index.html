@@ -3,36 +3,55 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#ffc128" />
+    <meta name="description" content="Best weather app." />
     <title>Smash it</title>
-    <link
-      href="https://fonts.googleapis.com/css?family=Poppins&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="css/styles.css" />
-    <script src="js/weather.js" defer></script>
-    <link rel="manifest" href="manifest.json" />
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <link rel="stylesheet" href="css/styles.css" />
+    <link rel="manifest" href="manifest.json" />
+    <script src="js/weather.js" defer></script>
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="./images/icons/apple-touch-icon.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/icons/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="./images/icons/favicon-16x16.png"
+    />
   </head>
   <body>
     <div class="container">
       <!-- start -->
       <div class="w-container" id="weatherHeader"></div>
       <div class="info-side">
+        <div class="location-container">
+          <label>
+            Search location
+            <input
+              type="text"
+              id="location-input"
+              name="location"
+              class="location-input"
+              placeholder="Location name"
+            />
+          </label>
+          <br />
+          <button class="location-button" id="search-btn">
+            <i data-feather="map-pin"></i><span>Search</span>
+          </button>
+        </div>
         <div class="today-info-container" id="todayDetails"></div>
         <div class="week-container">
           <ul class="week-list" id="forecast"></ul>
-        </div>
-        <div class="location-container">
-          <input
-            type="text"
-            id="location"
-            name="location"
-            class="location-input"
-            placeholder="Enter location"
-          /><br />
-          <button class="location-button">
-            <i data-feather="map-pin"></i><span>Search</span>
-          </button>
         </div>
       </div>
 

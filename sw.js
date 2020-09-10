@@ -39,7 +39,7 @@ self.addEventListener("fetch", (event) => {
 });
 
 async function networkFirst(req) {
-  const cache = await caches.open("news-articles");
+  const cache = await caches.open("weather-searches");
   try {
     const res = await fetch(req);
     cache.put(req, res.clone());
