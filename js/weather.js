@@ -10,7 +10,7 @@ const days = [
 
 const dayShortform = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
 const currentDate = new Date();
-const apiKey = "fb140c58b06d9db665b7713138ae69ea";
+const apiKey = "API_KEY_HERE";
 
 // default NY coords
 let lat = "40.730610";
@@ -41,7 +41,7 @@ button.addEventListener(
 
 async function reverseGeocode(query) {
   const res = await fetch(
-    `https://maps.googleapis.com/maps/api/geocode/json?address=${query}&key=AIzaSyBeSALB4UQwj0ezwUtuAKYJbpR6ZGyQuSE`
+    `https://maps.googleapis.com/maps/api/geocode/json?address=${query}&key=API_KEY_HERE`
   );
   const data = await res.json();
   if (
@@ -123,7 +123,7 @@ function renderTodayDetails(current) {
 }
 
 function renderDailyForecast(forecast, i) {
-  let today = (currentDate.getDay() + i) % 6;
+  let today = (currentDate.getDay() + i + 1) % 6;
   return `
   <li class="active">
     ${renderIcon(forecast.weather[0].icon)}
