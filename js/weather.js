@@ -62,7 +62,6 @@ async function reverseGeocode(query) {
 
 window.addEventListener("load", (e) => {
   postWeather();
-  feather.replace();
 });
 
 async function postWeather() {
@@ -88,7 +87,6 @@ function renderWeatherHeader(data) {
         <span class="date-day">${currentDate.getDate()}/${
     currentDate.getMonth() + 1
   } /${currentDate.getFullYear()}</span>
-        ${feather.icons.map.toSvg({ class: "location-icon" })}
         <span class="location">${
           cityName === "" ? data.timezone : cityName
         }</span>
