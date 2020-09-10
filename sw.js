@@ -10,7 +10,7 @@ const staticAssets = [
   "./",
   "./index.html",
   "./css/styles.css",
-  "./js/news.js",
+  "./js/weather.js",
   "./images",
 ];
 self.addEventListener("install", async (event) => {
